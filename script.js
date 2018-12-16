@@ -3,7 +3,7 @@
 function createCard(mealOption, index){
 
     var cardHtml =
-        "<div class=\"column is-narrow\"style=\"width: 350px\">\n" +
+        "<div class=\"column is-narrow \"style=\"width: 350px\">\n" +
         // "<div class=\"box\" style=\"width: 200px\">\n" +
 
         "<div class=\"card \">\n" +
@@ -37,48 +37,46 @@ function createCard(mealOption, index){
         "</div>";
 
     return cardHtml;
+}
 
+function createAndAppendCards(type){
+    getRelevantOutlets(type, function(relevantOutlets){
+        var selector = '#'+type;
+        for(var i = 0; i<relevantOutlets.outlets.length; i++){
+            var card = createCard(relevantOutlets, i);
+            $(selector).append(card); // insert the div you've just created
+        }
+    });
 
 }
+
 $(document).ready(function(){
-    // $.when(ajax1(), ajax2(), ajax3(), ajax4()).done(function(a1, a2, a3, a4){
-    //     // the code here will be executed when all four ajax requests resolve.
-    //     // a1, a2, a3 and a4 are lists of length 3 containing the response text,
-    //     // status, and jqXHR object for each of the four ajax calls respectively.
-    // });
+    // var x = document.getElementsByClassName("content-tab");
+    // for (var i = 0; i < x.length; i++) {
+    //     x[i].style.display = "none";
+    // }
     //
+    // tablinks = document.getElementsByClassName("tab");
+    // for (i = 0; i < x.length; i++) {
+    //     tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+    // }
+
+    createAndAppendCards('breakfast');
+    // createAndAppendCards('lunch');
+    // createAndAppendCards('dinner');
+
+
+    //     getRelevantOutlets("lunch", function(relevantOutlets){
+    //     // console.log("yes"+relevantOutlets.outlets[0]);
+    //         for(var i = 0; i<relevantOutlets.outlets.length; i++){
+    //             var card = createCard(relevantOutlets, i);
+    //             $('#breakfast').append(card); // insert the div you've just created
     //
-        getRelevantOutlets("lunch", function(relevantOutlets){
-        // console.log("yes"+relevantOutlets.outlets[0]);
-            for(var i = 0; i<relevantOutlets.outlets.length; i++){
-                var card = createCard(relevantOutlets, i);
-                $('#breakfast').append(card); // insert the div you've just created
-
-            }
-
-    });
-    // $(document).ajaxStop(function () {
-
-    // });
-
-
-
-
-
-
-    // $.ajax({url: "https://api.myjson.com/bins/1a7tf0",
-    //     success: function(result){
-    //         var dora = getFoodOptionsJSON(result, 'lunch');
-    //         // console.log(dora[0].product_name);
-    //         for(var i = 0; i<dora.length; i++){
-    //             $('#WebDev').append("<div>"+dora[i].product_name+"</div>");
-    //             console.log(dora[i].product_name);
     //         }
     //
-    //         getRelevantOutlets("breakfast");
-    //
-    //
-    //     }});
+    // });
+
+
 });
 
 /*
@@ -174,8 +172,6 @@ function getAdditionalOutletInfo(outletInfo, callback){
                     }
                 }
             }
-            console.log("i added the outets");
-            console.log("proof"+relevantOutlets.outlets[0]);
             callback(relevantOutlets);
             return relevantOutlets;
         }
@@ -183,7 +179,7 @@ function getAdditionalOutletInfo(outletInfo, callback){
 }
 
 
-function openTab(evt, tabName) {
+function openTab(evt, tabName, type) {
     var i, x, tablinks;
     x = document.getElementsByClassName("content-tab");
     for (i = 0; i < x.length; i++) {
@@ -195,4 +191,7 @@ function openTab(evt, tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " is-active";
+    createAndAppendCards(type);
+
+
 }
