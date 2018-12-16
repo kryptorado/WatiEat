@@ -2,13 +2,17 @@
 
 function createCard(mealOption, index){
 
-    var cardHtml = "<div class=\"card\">\n" +
-        "  <div class=\"card-image\">\n" +
-        "    <figure class=\"image is-4by3\">\n" +
+    var cardHtml =
+        "<div class=\"column is-narrow\"style=\"width: 350px\">\n" +
+        // "<div class=\"box\" style=\"width: 200px\">\n" +
+
+        "<div class=\"card \">\n" +
+        "  <div class=\"card-image is-flex is-horizontal-center\">\n" +
+        "    <figure class=\"image is-128x128\">\n" +
         "      <img src="+ mealOption.outlets[index].logo +" alt=\"Placeholder image\">\n" +
         "    </figure>\n" +
         "  </div>\n" +
-        "  <div class=\"card-content\">\n" +
+        "  <div class=\"card-content \">\n" +
         "    <div class=\"media\">\n" +
         "      <div class=\"media-left\">\n" +
         "        <figure class=\"image is-48x48\">\n" +
@@ -29,7 +33,9 @@ function createCard(mealOption, index){
         "      <time datetime=\"2016-1-1\">11:09 PM - 1 Jan 2016</time>\n" +
         "    </div>\n" +
         "  </div>\n" +
-        "</div>"
+        "</div>"+
+        "</div>";
+
     return cardHtml;
 
 
@@ -42,7 +48,7 @@ $(document).ready(function(){
     // });
     //
     //
-        getRelevantOutlets("dinner", function(relevantOutlets){
+        getRelevantOutlets("lunch", function(relevantOutlets){
         // console.log("yes"+relevantOutlets.outlets[0]);
             for(var i = 0; i<relevantOutlets.outlets.length; i++){
                 var card = createCard(relevantOutlets, i);
