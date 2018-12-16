@@ -14,20 +14,15 @@ function createCard(mealOption, index){
         "  </div>\n" +
         "  <div class=\"card-content \">\n" +
         "    <div class=\"media\">\n" +
-        "      <div class=\"media-left\">\n" +
-        "        <figure class=\"image is-48x48\">\n" +
-        "          <img src=\"https://bulma.io/images/placeholders/96x96.png\" alt=\"Placeholder image\">\n" +
-        "        </figure>\n" +
-        "      </div>\n" +
         "      <div class=\"media-content\">\n" +
-        "        <p class=\"title is-4\">John Smith</p>\n" +
-        "        <p class=\"subtitle is-6\">@johnsmith</p>\n" +
+        "        <p class=\"title is-4\">"+mealOption.outlets[index].outlet_name+"</p>\n" +
+        "        <p class=\"subtitle is-6\">" +
+        "           <span class=\"icon is-small\"><i class=\"far fa-building\" aria-hidden=\"true\"></i></span>\n" +
+        ""+mealOption.outlets[index].building+"</p>\n" +
         "      </div>\n" +
         "    </div>\n" +
         "\n" +
-        "    <div class=\"content\">\n" +
-        "      Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
-        "      Phasellus nec iaculis mauris. <a>@bulmaio</a>.\n" +
+        "    <div class=\"content\">\n" + mealOption.outlets[index].description + "<a>@bulmaio</a>.\n"+
         "      <a href=\"#\">#css</a> <a href=\"#\">#responsive</a>\n" +
         "      <br>\n" +
         "      <time datetime=\"2016-1-1\">11:09 PM - 1 Jan 2016</time>\n" +
@@ -79,40 +74,6 @@ $(document).ready(function(){
 
 });
 
-/*
-$.ajax({
-    url : "url",
-    type : "GET or POST", // whichever you like
-    contentType:"application/json",
-    success : function(list)
-    {
-        var divCol  = "<div class='col-sm-4 col-md-4'>";
-        var divWell = "<div class='well'>";
-        var divClose= "</div>";
-
-        list.forEach(function(obj, index) {
-
-            var title     = "<h5>"      + obj.title    + "</h5>";
-            var linkStart = "<a href='" + obj.filePath + "' target='_blank'>";
-            var image     = "<img data-toggle='tooltip' data-placement='left' title='Click to open data' src='" + obj.imagePath + "' height='100%' width='100%'/>"
-            var linkEnd   = "</a>";
-
-            var div = divCol    +
-                divWell     +
-                title       +
-                linkStart       +
-                image       +
-                linkEnd +
-                divClose +
-                divClose;
-
-            $('.col-sm-12').append(div); // insert the div you've just created
-
-        })
-    }
-});
-
-*/
 
 
 function getCurrentDate(){
