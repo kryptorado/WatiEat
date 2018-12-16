@@ -46,30 +46,10 @@ function createAndAppendCards(type){
 }
 
 $(document).ready(function(){
-    // var x = document.getElementsByClassName("content-tab");
-    // for (var i = 0; i < x.length; i++) {
-    //     x[i].style.display = "none";
-    // }
-    //
-    // tablinks = document.getElementsByClassName("tab");
-    // for (i = 0; i < x.length; i++) {
-    //     tablinks[i].className = tablinks[i].className.replace(" is-active", "");
-    // }
 
     createAndAppendCards('breakfast');
-    // createAndAppendCards('lunch');
-    // createAndAppendCards('dinner');
-
-
-    //     getRelevantOutlets("lunch", function(relevantOutlets){
-    //     // console.log("yes"+relevantOutlets.outlets[0]);
-    //         for(var i = 0; i<relevantOutlets.outlets.length; i++){
-    //             var card = createCard(relevantOutlets, i);
-    //             $('#breakfast').append(card); // insert the div you've just created
-    //
-    //         }
-    //
-    // });
+    createAndAppendCards('lunch');
+    createAndAppendCards('dinner');
 
 
 });
@@ -152,7 +132,8 @@ function openTab(evt, tabName, type) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " is-active";
-    createAndAppendCards(type);
+    // var lol = '#'+type;
+    // $(lol).style.display="block";
 
 
 }
