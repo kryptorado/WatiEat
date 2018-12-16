@@ -1,3 +1,4 @@
+
 function getCurrentDate(){
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate()-2);
@@ -24,13 +25,28 @@ function getFoodOptionsJSON(result, type){
     return options;
 }
 
+function openTab(evt, tabName) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName("content-tab");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tab");
+    for (i = 0; i < x.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " is-active";
+}
+
+
 $(document).ready(function(){
-    $.ajax({url: "https://api.uwaterloo.ca/v2/foodservices/2018/50/menu.json?key=ee79aceeb4e113659b786393ea153b35",
+    $.ajax({url: "https://api.myjson.com/bins/1a7tf0",
         success: function(result){
             var dora = getFoodOptionsJSON(result, 'lunch');
             // console.log(dora[0].product_name);
             for(var i = 0; i<dora.length; i++){
-                $('#menu').append("<p>"+dora[i].product_name+"</p>");
+                $('#WebDev').append("<div>"+dora[i].product_name+"</div>");
                 console.log(dora[i].product_name);
             }
 

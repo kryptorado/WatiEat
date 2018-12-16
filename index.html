@@ -1,19 +1,113 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>WatiEat</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-</head>
-<body>
-<div id = 'menu'>
-	
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        WatiEat
+      </h1>
+      <p class="subtitle">
+        My first website with <strong>Bulma</strong>!
+      </p>
+    </div>
+
+<div class="tabs ">
+  <!--is-centered-->
+  <ul>
+    <li  class="tab is-active" onclick="openTab(event,'WebDev')">
+      <a>
+        <span class="icon is-small"><i class="fas fa-coffee" aria-hidden="true"></i></span>
+        <span>Breakfast
+        </span>
+      </a>
+    </li >
+    <li class="tab" onclick="openTab(event,'WebAud')">
+      <a>
+        <span class="icon is-small"><i class="fas fa-concierge-bell" aria-hidden="true"></i></span>
+        <span>Lunch</span>
+
+      </a>
+    </li>
+    <li class="tab" onclick="openTab(event,'WebDev')">
+      <a>
+        <span class="icon is-small"><i class="fas fa-wine-glass"></i></span>
+        <span>Dinner</span>
+      </a>
+    </li>
+  </ul>
 </div>
 
 
-<script type="text/javascript" src = "script.js"></script>
-</body>
+    <div class="container section">
+      <div id="WebDev" class="content-tab" >
+        <div id="menu">
+
+        </div>
+        <p>
+        </p>
+      </div>
+      <div id="WebAud" class="content-tab" style="display:none">
+        <p>
+          test2<br>
+          Details Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      </div>
+      <div id="Support" class="content-tab" style="display:none">
+        <p>
+          test3 <br>
+          Specification Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      </div>
+    </div>
+
+
+
+
+  </section>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="script.js"></script>
+
+  </body>
 </html>
+<!-- 
+<html>
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    var keyword = "beef pot pie";
+
+    $(document).ready(function(){
+
+        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+        {
+            tags: keyword,
+            tagmode: "any",
+            format: "json"
+        },
+        function(data) {
+            var rnd = Math.floor(Math.random() * data.items.length);
+
+            var image_src = data.items[3]['media']['m'].replace("_m", "_b");
+
+            $('body').css('background-image', "url('" + image_src + "')");
+
+        });
+
+    });
+    </script>
+</head>
+<body>
+
+</body>
+</html> -->
