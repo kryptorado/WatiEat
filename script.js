@@ -25,6 +25,48 @@ function getFoodOptionsJSON(result, type){
     return options;
 }
 
+function getRelevantOutlets(type){
+
+    $.ajax({
+        url: 'http://api.uwaterloo.ca/v2/foodservices/outlets.json?key=ee79aceeb4e113659b786393ea153b35',
+        success: function(result){
+            var outletInfo = [];
+
+            for(var i = 0, j=0; i<result.data.length; i++){
+                var outlet = result.data[i];
+                var compare = "has_"+type;
+                if(result.data[i][compare]){
+                    outletInfo[j++] = outlet.outlet_id;
+                }
+
+            }
+
+            return getAdditionalOutletInfo(outletInfo);
+
+        }
+    });
+}
+
+function getAdditionalOutletInfo(outletInfo){
+    $.ajax({url: 'https://api.uwaterloo.ca/v2/foodservices/locations.json?key=ee79aceeb4e113659b786393ea153b35',
+        success: function(result){
+        var relevantOutlets = {
+            outlets: []
+        };
+        for(var i = 0; i<result.data.length; i++){
+            for(var j = 0; j<outletInfo.length; j++){
+                if(result.data[i].outlet_id === outletInfo[j]){
+                    relevantOutlets.outlets.push(result.data[i])
+                }
+            }
+        }
+        console.log(relevantOutlets);
+        return relevantOutlets;
+    }
+    });
+}
+
+
 function openTab(evt, tabName) {
     var i, x, tablinks;
     x = document.getElementsByClassName("content-tab");
@@ -49,6 +91,8 @@ $(document).ready(function(){
                 $('#WebDev').append("<div>"+dora[i].product_name+"</div>");
                 console.log(dora[i].product_name);
             }
+
+            getRelevantOutlets("breakfast");
 
 
         }});
