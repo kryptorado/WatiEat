@@ -1,6 +1,43 @@
 
+function filterDescription(description){
+    var filteredInfo = {};
+    var location 
+    for(var i = 0; i<description.length; i++){
+
+    }
+    // var selectTopics = /^[A-Z]\w+\s?\w+:/gm;
+    // var arr = selectTopics.exec(description);
+    // console.log(arr[0]);
+
+    // var match;
+    // while ((match = selectTopics.exec(description)) != null) {
+    //     console.log(match);
+    // }
+    // for(var i = 0; i<arr.length; i++){
+    //     console.log(arr[i]);
+    // }
+    //console.log(selectTopics.exec(description));
+    //for(var i = 0; i<description.length; i++){
+
+    //}
+
+
+    // var tempDiv = document.createElement('div');
+    // tempDiv.innerHTML = description;
+    // var nodes = tempDiv.childNodes;
+    // for(var nodeId=nodes.length-1; nodeId >= 0; --nodeId) {
+    //     if(nodes[nodeId].tagName === 'br') {
+    //         tempDiv.removeChild(nodes[nodeId]);
+    //     }
+    // }
+    // var newStr = tempDiv.innerHTML;
+    // console.log(newStr);
+
+}
 
 function createCard(mealOption, index){
+    var description = {};
+    description = filterDescription(mealOption.outlets[index].description);
 
     var cardHtml =
         "<div class=\"column is-narrow \"style=\"width: 350px\">\n" +
@@ -51,8 +88,10 @@ $(document).ready(function(){
     createAndAppendCards('lunch');
     createAndAppendCards('dinner');
 
-
 });
+
+
+
 
 
 
