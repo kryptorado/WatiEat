@@ -1,38 +1,12 @@
 
 function filterDescription(description){
-    var filteredInfo = {};
-    var location 
-    for(var i = 0; i<description.length; i++){
-
-    }
-    // var selectTopics = /^[A-Z]\w+\s?\w+:/gm;
-    // var arr = selectTopics.exec(description);
-    // console.log(arr[0]);
-
-    // var match;
-    // while ((match = selectTopics.exec(description)) != null) {
-    //     console.log(match);
-    // }
-    // for(var i = 0; i<arr.length; i++){
-    //     console.log(arr[i]);
-    // }
-    //console.log(selectTopics.exec(description));
-    //for(var i = 0; i<description.length; i++){
-
-    //}
-
-
-    // var tempDiv = document.createElement('div');
-    // tempDiv.innerHTML = description;
-    // var nodes = tempDiv.childNodes;
-    // for(var nodeId=nodes.length-1; nodeId >= 0; --nodeId) {
-    //     if(nodes[nodeId].tagName === 'br') {
-    //         tempDiv.removeChild(nodes[nodeId]);
-    //     }
-    // }
-    // var newStr = tempDiv.innerHTML;
-    // console.log(newStr);
-
+    var arr = /Location:\s*([^\v]*)\s*Features:\s*([^\v]*)Payment accepted:([^\r\n]*)/.exec(description);
+    var outletInfo = {
+        "location": arr[1],
+        "features": arr[2],
+        "payment": arr[3]
+    };
+    return outletInfo;
 }
 
 function createCard(mealOption, index){
@@ -41,8 +15,6 @@ function createCard(mealOption, index){
 
     var cardHtml =
         "<div class=\"column is-narrow \"style=\"width: 350px\">\n" +
-        // "<div class=\"box\" style=\"width: 200px\">\n" +
-
         "<div class=\"card \">\n" +
         "  <div class=\"card-image is-flex is-horizontal-center\">\n" +
         "    <figure class=\"image is-128x128\">\n" +
@@ -59,7 +31,7 @@ function createCard(mealOption, index){
         "      </div>\n" +
         "    </div>\n" +
         "\n" +
-        "    <div class=\"content\">\n" + mealOption.outlets[index].description + "<a>@bulmaio</a>.\n"+
+        "    <div class=\"content\">\n" + description.features + "<a>@bulmaio</a>.\n"+
         "      <a href=\"#\">#css</a> <a href=\"#\">#responsive</a>\n" +
         "      <br>\n" +
         "      <time datetime=\"2016-1-1\">11:09 PM - 1 Jan 2016</time>\n" +
