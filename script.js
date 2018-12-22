@@ -1,47 +1,66 @@
 
 function filterDescription(description){
     var arr = /Location:\s*([^\v]*)\s*Features:\s*([^\v]*)Payment accepted:([^\r\n]*)/.exec(description);
-    var outletInfo = {
-        "location": arr[1],
-        "features": arr[2],
-        "payment": arr[3]
-    };
+
+    try{
+        var outletInfo = {
+            "location": arr[1].replace(/(&nbsp;|<br>|<br \/>)/g, ''),
+            "features": arr[2].replace(/(&nbsp;|<br>|<br \/>)/g, ''),
+            "payment": arr[3].replace(/(&nbsp;|<br>|<br \/>)/g, '')
+        };
+    }
+    catch(err){
+        console.log("The description text has problems");
+    }
     return outletInfo;
+}
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
 }
 
 function createCard(mealOption, index){
     var description = {};
     description = filterDescription(mealOption.outlets[index].description);
 
-    var cardHtml =
-        "<div class=\"column is-narrow \"style=\"width: 350px\">\n" +
-        "<div class=\"card \">\n" +
-        "  <div class=\"card-image is-flex is-horizontal-center\">\n" +
-        "    <figure class=\"image is-128x128\">\n" +
-        "      <img src="+ mealOption.outlets[index].logo +" alt=\"Placeholder image\">\n" +
-        "    </figure>\n" +
-        "  </div>\n" +
-        "  <div class=\"card-content \">\n" +
-        "    <div class=\"media\">\n" +
-        "      <div class=\"media-content\">\n" +
-        "        <p class=\"title is-4\">"+mealOption.outlets[index].outlet_name+"</p>\n" +
-        "        <p class=\"subtitle is-6\">" +
-        "           <span class=\"icon is-small\"><i class=\"far fa-building\" aria-hidden=\"true\"></i></span>\n" +
-        ""+mealOption.outlets[index].building+"</p>\n" +
-        "      </div>\n" +
-        "    </div>\n" +
-        "\n" +
-        "    <div class=\"content\">\n" + description.features + "<a>@bulmaio</a>.\n"+
-        "      <a href=\"#\">#css</a> <a href=\"#\">#responsive</a>\n" +
-        "      <br>\n" +
-        "      <time datetime=\"2016-1-1\">11:09 PM - 1 Jan 2016</time>\n" +
-        "    </div>\n" +
-        "  </div>\n" +
-        "</div>"+
-        "</div>";
+    if(!isEmpty(description)){
+        var cardHtml =
+            "<div class=\"column is-narrow \"style=\"width: 350px\">\n" +
+            "<div class=\"card \">\n" +
+            "  <div class=\"card-image is-flex is-horizontal-center\">\n" +
+            "    <figure class=\"image is-128x128\">\n" +
+            "      <img src="+ mealOption.outlets[index].logo +" alt=\"Placeholder image\">\n" +
+            "    </figure>\n" +
+            "  </div>\n" +
+            "  <div class=\"card-content \">\n" +
+            "    <div class=\"media\">\n" +
+            "      <div class=\"media-content\">\n" +
+            "        <p class=\"title is-4\">"+mealOption.outlets[index].outlet_name+"</p>\n" +
+            "        <p class=\"subtitle is-6\">" +
+            "           <span class=\"icon is-small\"><i class=\"far fa-building\" aria-hidden=\"true\"></i></span>\n" +
+            ""+mealOption.outlets[index].building+"</p>\n" +
+            "      </div>\n" +
+            "    </div>\n" +
+            "\n" +
+            "    <div class=\"content\">\n" + description.features + "<a>@bulmaio</a>.\n"+
+            "      <a href=\"#\">#css</a> <a href=\"#\">#responsive</a>\n" +
+            "      <br>\n" +
+            "      <time datetime=\"2016-1-1\">11:09 PM - 1 Jan 2016</time>\n" +
+            "    </div>\n" +
+            "  </div>\n" +
+            "</div>"+
+            "</div>";
 
-    return cardHtml;
+        return cardHtml;
+    }
 }
+
+
+
 
 function createAndAppendCards(type){
     getRelevantOutlets(type, function(relevantOutlets){
