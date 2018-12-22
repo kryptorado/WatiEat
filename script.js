@@ -41,15 +41,14 @@ function createCard(mealOption, index){
             "      <div class=\"media-content\">\n" +
             "        <p class=\"title is-4\">"+mealOption.outlets[index].outlet_name+"</p>\n" +
             "        <p class=\"subtitle is-6\">" +
-            "           <span class=\"icon is-small\"><i class=\"far fa-building\" aria-hidden=\"true\"></i></span>\n" +
+            "           <span  class=\"icon is-small\" title ='"+description.location+"'><i  class=\"far fa-building\" aria-hidden=\"true\"></i></span>\n" +
             ""+mealOption.outlets[index].building+"</p>\n" +
             "      </div>\n" +
             "    </div>\n" +
             "\n" +
-            "    <div class=\"content\">\n" + description.features + "<a>@bulmaio</a>.\n"+
+            "    <div class=\"content\">\n" + description.features + "\n"+
             "      <a href=\"#\">#css</a> <a href=\"#\">#responsive</a>\n" +
             "      <br>\n" +
-            "      <time datetime=\"2016-1-1\">11:09 PM - 1 Jan 2016</time>\n" +
             "    </div>\n" +
             "  </div>\n" +
             "</div>"+
