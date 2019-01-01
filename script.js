@@ -24,10 +24,10 @@ function isEmpty(obj) {
 }
 
 function createCard(mealOption, index){
-    var description = {};
-    description = filterDescription(mealOption.outlets[index].description);
-
+    var description = filterDescription(mealOption.outlets[index].description);
     if(!isEmpty(description)){
+        const upperCasedDescription = description.features.charAt(0).toUpperCase() + description.features.substr(1, description.features.length);
+
         var cardHtml =
             "<div class=\"column is-narrow \"style=\"width: 350px\">\n" +
             "<div class=\"card \">\n" +
@@ -46,7 +46,7 @@ function createCard(mealOption, index){
             "      </div>\n" +
             "    </div>\n" +
             "\n" +
-            "    <div class=\"content\">\n" + description.features + "\n"+
+            "    <div class=\"content\">\n" + upperCasedDescription + "\n"+
             "      <a href=\"#\">#css</a> <a href=\"#\">#responsive</a>\n" +
             "      <br>\n" +
             "    </div>\n" +
