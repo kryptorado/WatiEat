@@ -6,21 +6,30 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
   </head>
   <body>
+
+
   <section class="section">
-    <div class="container">
+    <!--<div class="container">-->
       <h1 class="title">
         WatiEat
       </h1>
       <p class="subtitle">
         My first website with <strong>Bulma</strong>!
       </p>
-    </div>
+    <!--</div>-->
 
-<div class="tabs ">
+
+
+
+
+    <div class="tabs ">
+
+
   <!--is-centered-->
   <ul>
     <li  class="tab is-active" onclick="openTab(event,'one', 'breakfast')">
@@ -47,6 +56,17 @@
 </div>
 
 
+    <div id="app" class="container">
+
+      <b-field label="Select a date">
+        <b-datepicker
+                placeholder="Click to select..."
+                icon="calendar-today">
+        </b-datepicker>
+      </b-field>
+
+    </div>
+
     <div class="container section">
       <div id="one" class="content-tab " >
         <div class = "columns is-multiline is-mobile " id="breakfast">
@@ -70,9 +90,24 @@
     </div>
 
 
-
-
   </section>
+
+
+
+  <script src="https://unpkg.com/vue"></script>
+  <!-- Full bundle -->
+  <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+
+  <!-- Individual components -->
+  <script src="https://unpkg.com/buefy/dist/components/table"></script>
+  <script src="https://unpkg.com/buefy/dist/components/input"></script>
+
+  <script>
+      new Vue({
+          el: '#app'
+      })
+  </script>
+
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
