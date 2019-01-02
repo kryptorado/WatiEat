@@ -1,4 +1,40 @@
 
+$(document).ready(function(){
+    createAndAppendCards('breakfast');
+    createAndAppendCards('lunch');
+    createAndAppendCards('dinner');
+    getMenuOptions(getCurrentDate());
+
+
+});
+
+function getMenuOptions(date){
+    $.ajax({
+        url: 'https://api.myjson.com/bins/rzygk',
+        success: function(result){
+            console.log("this ran");
+            var dora = getFoodOptionsJSON(result, 'lunch', "2019-01-08", "Mudie's");
+            console.log(dora.length+"is the length");
+            for(var i = 0; i<dora.length; i++){
+                console.log(dora[i]);
+            }
+
+
+            // var outletInfo = [];
+            // for(var i = 0, j=0; i<result.data.length; i++){
+            //     var outlet = result.data[i];
+            //     var compare = "has_"+type;
+            //     if(result.data[i][compare]){
+            //         outletInfo[j++] = outlet.outlet_id;
+            //     }
+            // }
+            // return getAdditionalOutletInfo(outletInfo, callback);
+        }
+    });
+}
+
+
+
 function filterDescription(description){
     var arr = /Location:\s*([^\v]*)\s*Features:\s*([^\v]*)Payment accepted:([^\r\n]*)/.exec(description);
 
@@ -29,8 +65,8 @@ function createCard(mealOption, index){
         const upperCasedDescription = description.features.charAt(0).toUpperCase() + description.features.substr(1, description.features.length);
 
         var cardHtml =
-            "<div class=\"column is-narrow \"style=\"width: 350px\">\n" +
-            "<div class=\"card \">\n" +
+            "<div class=\"column is-narrow \"style=\"width:350px\">\n" +
+            "<div class=\"card \" id=\"#"+mealOption.outlets[index].outlet_name+"\">\n" +
             "  <div class=\"card-image is-flex is-horizontal-center\">\n" +
             "    <figure class=\"image is-128x128\">\n" +
             "      <img src="+ mealOption.outlets[index].logo +" alt=\"Placeholder image\">\n" +
@@ -59,8 +95,6 @@ function createCard(mealOption, index){
 }
 
 
-
-
 function createAndAppendCards(type){
     getRelevantOutlets(type, function(relevantOutlets){
         var selector = '#'+type;
@@ -69,20 +103,7 @@ function createAndAppendCards(type){
             $(selector).append(card); // insert the div you've just created
         }
     });
-
 }
-
-$(document).ready(function(){
-
-    createAndAppendCards('breakfast');
-    createAndAppendCards('lunch');
-    createAndAppendCards('dinner');
-
-});
-
-
-
-
 
 
 function getCurrentDate(){
@@ -91,22 +112,27 @@ function getCurrentDate(){
     return date;
 }
 
-function getFoodOptionsJSON(result, type){
+function getFoodOptionsJSON(result, type, date, outlet){
     var options = [];
     for(var i = 0; i<result.data.outlets.length; i++){
-        for(var j = 0; j<result.data.outlets[i].menu.length; j++){
-            var obj = result.data.outlets[i].menu[j];
-            const menuDate = Object.getOwnPropertyDescriptor(obj, 'date');
+        var obj0 = result.data.outlets[i];
+        const outletName = Object.getOwnPropertyDescriptor(obj0, 'outlet_name');
+        if(outletName.value == outlet){
+            for(var j = 0; j<result.data.outlets[i].menu.length; j++){
+                var obj = result.data.outlets[i].menu[j];
+                const menuDate = Object.getOwnPropertyDescriptor(obj, 'date');
 
-            if(menuDate.value === getCurrentDate()){
-                var obj2 = result.data.outlets[i].menu[j].meals;
-                const menuDate2 = Object.getOwnPropertyDescriptor(obj2, type);
+                if(menuDate.value === date){
+                    var obj2 = result.data.outlets[i].menu[j].meals;
+                    const mealType = Object.getOwnPropertyDescriptor(obj2, type);
 
-                for(var k = 0; k<result.data.outlets[i].menu[j].meals.lunch.length; k++){
-                    options.push(menuDate2.value[k]);
+                    for(var k = 0; k<result.data.outlets[i].menu[j].meals.lunch.length; k++){
+                        options.push(mealType.value[k]);
+                    }
                 }
             }
         }
+
     }
     return options;
 }
