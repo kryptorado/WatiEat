@@ -1,36 +1,51 @@
-
+var outletNames = [];
 $(document).ready(function(){
     createAndAppendCards('breakfast');
     createAndAppendCards('lunch');
     createAndAppendCards('dinner');
-    getMenuOptions(getCurrentDate());
+    getMenuOptions(3);
+
+
+
+
 
 
 });
 
 function getMenuOptions(date){
+    //every time this fct runs, it should find all food options for outlets that are displayed and inject appropritate
+
     $.ajax({
         url: 'https://api.myjson.com/bins/rzygk',
         success: function(result){
-            console.log("this ran");
-            var dora = getFoodOptionsJSON(result, 'lunch', "2019-01-08", "Mudie's");
-            console.log(dora.length+"is the length");
-            for(var i = 0; i<dora.length; i++){
-                console.log(dora[i]);
+
+
+
+            var test = $('#dateSelect').val();
+            if(test == ""){
+                var requestedMenu = getFoodOptionsJSON(result, 'lunch', "2019-01-08");
+                for(var i = 0; i<requestedMenu.length; i++){
+                    console.log(requestedMenu[i]);
+                }
             }
 
+            else{
+                var selectedDate= convertDateFormat(("menuSelect").val());
+                var requestedMenu = getFoodOptionsJSON(result, 'lunch', selectedDate);
+                for(var i = 0; i<requestedMenu.length; i++){
+                    console.log(requestedMenu[i]);
+                }
+            }
 
-            // var outletInfo = [];
-            // for(var i = 0, j=0; i<result.data.length; i++){
-            //     var outlet = result.data[i];
-            //     var compare = "has_"+type;
-            //     if(result.data[i][compare]){
-            //         outletInfo[j++] = outlet.outlet_id;
-            //     }
-            // }
-            // return getAdditionalOutletInfo(outletInfo, callback);
         }
     });
+
+}
+
+function convertDateFormat(dateToBeFormatted){
+    var reg = /(?:[^\/\n]|\/\/)+/.exec(dateToBeFormatted);
+    var newDate = reg[2]+"-"+reg[1]+"-"+reg[0];
+    return newDate;
 }
 
 
@@ -63,6 +78,7 @@ function createCard(mealOption, index){
     var description = filterDescription(mealOption.outlets[index].description);
     if(!isEmpty(description)){
         const upperCasedDescription = description.features.charAt(0).toUpperCase() + description.features.substr(1, description.features.length);
+        // outletNames.push(mealOption.outlets[index].outlet_name);
 
         var cardHtml =
             "<div class=\"column is-narrow \"style=\"width:350px\">\n" +
@@ -89,9 +105,9 @@ function createCard(mealOption, index){
             "  </div>\n" +
             "</div>"+
             "</div>";
-
         return cardHtml;
     }
+
 }
 
 
@@ -112,29 +128,41 @@ function getCurrentDate(){
     return date;
 }
 
-function getFoodOptionsJSON(result, type, date, outlet){
+function getFoodOptionsJSON(result, type, date){
+    var testObj = {};
     var options = [];
     for(var i = 0; i<result.data.outlets.length; i++){
         var obj0 = result.data.outlets[i];
         const outletName = Object.getOwnPropertyDescriptor(obj0, 'outlet_name');
-        if(outletName.value == outlet){
-            for(var j = 0; j<result.data.outlets[i].menu.length; j++){
+        options["outlet_name"] = outletName.value;
+
+            for(var j = 0; j<result.data.outlets[i].menu.length; j++) {
                 var obj = result.data.outlets[i].menu[j];
                 const menuDate = Object.getOwnPropertyDescriptor(obj, 'date');
 
-                if(menuDate.value === date){
+
+                if (menuDate.value === date) {
                     var obj2 = result.data.outlets[i].menu[j].meals;
                     const mealType = Object.getOwnPropertyDescriptor(obj2, type);
 
-                    for(var k = 0; k<result.data.outlets[i].menu[j].meals.lunch.length; k++){
-                        options.push(mealType.value[k]);
+                    for (var k = 0; k < result.data.outlets[i].menu[j].meals.lunch.length; k++) {
+                        options.push(mealType.value[k].product_name +" ("+outletName.value + ")");
+
                     }
                 }
             }
-        }
 
     }
+    displayMenu(options);
     return options;
+}
+
+function displayMenu(options){
+
+        for (var i = 0; i < options.length; i++) {
+            $( "#myDIV" ).append( $( "<p>"+options[i]+"</p>" ) );
+        }
+
 }
 
 function getRelevantOutlets(type, callback){
