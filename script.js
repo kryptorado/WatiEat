@@ -128,7 +128,7 @@ function createAndAppendCards(type){
 
 function getCurrentDate(){
     var today = new Date();
-
+    console.log("hi");
     return today;
 }
 

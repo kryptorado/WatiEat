@@ -58,6 +58,7 @@
 
       <b-field label="Select a date">
         <b-datepicker
+                @change="getCurrentDate()"
                 placeholder="Click to select..."
                 icon="calendar-today"
         id="dateSelect">
@@ -103,8 +104,11 @@
   <script>
       new Vue({
           el: '#app'
+
       })
   </script>
+
+
 
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
