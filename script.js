@@ -1,32 +1,36 @@
-var outletNames = [];
+var options = [];
+var test;
 $(document).ready(function(){
     createAndAppendCards('breakfast');
     createAndAppendCards('lunch');
     createAndAppendCards('dinner');
-    getMenuOptions(3);
-
-
-
-
-
+    getMenuOptions(getCurrentDate());
 
 });
 
 function getMenuOptions(date){
-    //every time this fct runs, it should find all food options for outlets that are displayed and inject appropritate
+    var additionalZeroDay = "";
+    var additionalZeroMonth = ""
+    if(date.getDate()<10){
+        additionalZeroDay = "0";
+    }
+    if(date.getMonth()+1 < 10){
+        additionalZeroMonth = "0";
+    }
+    var today = date.getFullYear()+'-'+additionalZeroMonth+(date.getMonth()+1)+'-'+additionalZeroDay+(date.getDate());
+    var delayInMilliseconds = 1000; //1 second
 
     $.ajax({
-        url: 'https://api.myjson.com/bins/rzygk',
+        url: 'https://api.uwaterloo.ca/v2/foodservices/'+ date.getFullYear() +'/'+ (date.getWeek()+1) +'/menu.json?key=ee79aceeb4e113659b786393ea153b35',
         success: function(result){
+            console.log('https://api.uwaterloo.ca/v2/foodservices/'+ date.getFullYear() +'/'+ (date.getWeek()) +'/menu.json?key=ee79aceeb4e113659b786393ea153b35');
+            console.log(today);
+            test = $('#dateSelect').val();
+            $( "#myDIV" ).append( $( '<b><b></b>'+today+' options: </b> </p>' ) );
 
-
-
-            var test = $('#dateSelect').val();
             if(test == ""){
-                var requestedMenu = getFoodOptionsJSON(result, 'lunch', "2019-01-08");
-                for(var i = 0; i<requestedMenu.length; i++){
-                    console.log(requestedMenu[i]);
-                }
+                var requestedMenu = getFoodOptionsJSON(result, 'lunch', today);
+
             }
 
             else{
@@ -124,13 +128,13 @@ function createAndAppendCards(type){
 
 function getCurrentDate(){
     var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate()-2);
-    return date;
+
+    return today;
 }
 
 function getFoodOptionsJSON(result, type, date){
-    var testObj = {};
-    var options = [];
+     options = [];
+    console.log(result);
     for(var i = 0; i<result.data.outlets.length; i++){
         var obj0 = result.data.outlets[i];
         const outletName = Object.getOwnPropertyDescriptor(obj0, 'outlet_name');
@@ -140,29 +144,25 @@ function getFoodOptionsJSON(result, type, date){
                 var obj = result.data.outlets[i].menu[j];
                 const menuDate = Object.getOwnPropertyDescriptor(obj, 'date');
 
-
                 if (menuDate.value === date) {
                     var obj2 = result.data.outlets[i].menu[j].meals;
                     const mealType = Object.getOwnPropertyDescriptor(obj2, type);
 
                     for (var k = 0; k < result.data.outlets[i].menu[j].meals.lunch.length; k++) {
-                        options.push(mealType.value[k].product_name +" ("+outletName.value + ")");
+                        // console.log(mealType.value[k].product_name +" ("+outletName.value + ")");
+                        displayMenu(mealType.value[k].product_name +" ("+outletName.value + ")");
+                        // options.push(mealType.value[k].product_name +" ("+outletName.value + ")");
 
                     }
                 }
             }
 
     }
-    displayMenu(options);
     return options;
 }
 
 function displayMenu(options){
-
-        for (var i = 0; i < options.length; i++) {
-            $( "#myDIV" ).append( $( "<p>"+options[i]+"</p>" ) );
-        }
-
+    $( "#myDIV" ).append( $( "<p>"+options+"</p>" ) );
 }
 
 function getRelevantOutlets(type, callback){
@@ -215,8 +215,17 @@ function openTab(evt, tabName, type) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " is-active";
-    // var lol = '#'+type;
-    // $(lol).style.display="block";
+}
 
 
+Date.prototype.getWeek = function() {
+    var date = new Date(this.getTime());
+    date.setHours(0, 0, 0, 0);
+    // Thursday in current week decides the year.
+    date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+    // January 4 is always in week 1.
+    var week1 = new Date(date.getFullYear(), 0, 4);
+    // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+    return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+        - 3 + (week1.getDay() + 6) % 7) / 7);
 }
