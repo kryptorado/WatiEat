@@ -168,10 +168,7 @@ function displayMenu(options){
 function getRelevantOutlets(type, callback){
 
     $.ajax({
-        url: 'https://
-        
-        
-        .myjson.com/bins/fk7h8',
+        url: 'https://.myjson.com/bins/fk7h8',
         success: function(result){
             var outletInfo = [];
             for(var i = 0, j=0; i<result.data.length; i++){
