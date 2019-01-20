@@ -21,9 +21,9 @@ function getMenuOptions(date){
     var delayInMilliseconds = 1000; //1 second
 
     $.ajax({
-        url: 'https://api.uwaterloo.ca/v2/foodservices/'+ date.getFullYear() +'/'+ (date.getWeek()+1) +'/menu.json?key=ee79aceeb4e113659b786393ea153b35',
+        url: 'https://api.uwaterloo.ca/v2/foodservices/'+ date.getFullYear() +'/'+ (date.getWeek()+1) +'/menu.json?key=YOUR-API-KEY-HERE',
         success: function(result){
-            console.log('https://api.uwaterloo.ca/v2/foodservices/'+ date.getFullYear() +'/'+ (date.getWeek()) +'/menu.json?key=ee79aceeb4e113659b786393ea153b35');
+            console.log('https://api.uwaterloo.ca/v2/foodservices/'+ date.getFullYear() +'/'+ (date.getWeek()) +'/menu.json?key=YOUR-API-KEY-HERE');
             console.log(today);
             test = $('#dateSelect').val();
             $( "#myDIV" ).append( $( '<b><b></b>'+today+' options: </b> </p>' ) );
@@ -168,7 +168,10 @@ function displayMenu(options){
 function getRelevantOutlets(type, callback){
 
     $.ajax({
-        url: 'https://api.myjson.com/bins/fk7h8',
+        url: 'https://
+        
+        
+        .myjson.com/bins/fk7h8',
         success: function(result){
             var outletInfo = [];
             for(var i = 0, j=0; i<result.data.length; i++){
